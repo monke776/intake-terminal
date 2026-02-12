@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Intake Terminal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #00ff66;
+      font-family: monospace;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .terminal {
+      padding: 20px;
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      background: #00ff66;
+      animation: blink 1s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      50% { background: transparent; }
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal" id="terminal"></div>
+
+  <script>
+    const lines = [
+      "INTAKE TERMINAL v0.3",
+      "",
+      ">> identity check in progress...",
+      ">> facial data: ACCEPTED",
+      ">> voice pattern: ACCEPTED",
+      ">> heartbeat: ACCEPTED",
+      "",
+      "WARNING:",
+      "You do not meet the minimum criteria.",
+      "",
+      ">> reason: HUMAN",
+      "",
+      "Please remain still.",
+      "Processing intake request...",
+      "",
+      "ERROR: SUBJECT AWARE",
+      "",
+      "Do not exit the terminal.",
+      "Do not look away.",
+      "",
+      ">> connection lost"
+    ];
+
+    const terminal = document.getElementById("terminal");
+    let line = 0;
+    let char = 0;
+
+    function type() {
+      if (line < lines.length) {
+        if (char < lines[line].length) {
+          terminal.textContent += lines[line][char];
+          char++;
+        } else {
+          terminal.textContent += "\n";
+          line++;
+          char = 0;
+        }
+        setTimeout(type, 40);
+      } else {
+        terminal.innerHTML += "<span class='cursor'>&nbsp;</span>";
+      }
+    }
+
+    type();
+  </script>
+</body>
+</html>
